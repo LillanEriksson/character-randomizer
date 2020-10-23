@@ -1,10 +1,9 @@
-/* eslint-disable spaced-comment */
-/* eslint-disable linebreak-style */
 import React from 'react';
+import './App.css';
 
 export const App = () => {
 	const randomSelector = (array) => {
-		return array[Math.floor(Math.random() * array.lenght)];
+		return array[Math.floor(Math.random() * array.length)];
 	};
 	//folkslag
 	const race = [
