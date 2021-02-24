@@ -9,3 +9,15 @@ button {
 	width: 100px;
 	margin: 10px;
 }
+
+.character {
+	border: 1px solid black;
+	width: 30%;
+	padding: 10px;
+	margin: 10px;
+}
+
+.character-sheet {
+	display: flex;
+	flex-wrap: wrap;
+}

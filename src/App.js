@@ -14,7 +14,7 @@ export const App = () => {
 
 	//dice function
 	const rollDices = () => {
-		return Math.floor(Math.random() * 18) + 3;
+		return Math.floor(Math.random() * 16) + 3;
 	};
 
 	//sadly I could not find a api with only swedish names
@@ -122,7 +122,7 @@ export const App = () => {
 			</div>
 			<div>
 				{showNewCharacter && (
-					<div className="new-character">
+					<div className="character">
 						<p>Name: {newCharacter.name}</p>
 						<p>Race: {newCharacter.race}</p>
 						<p>Class: {newCharacter.klass}</p>
@@ -147,24 +147,25 @@ export const App = () => {
 			</div>
 
 			{showCharacterSheet && (
-				<div className="character-sheet">
+				<div className="my-characters">
 					<h1>Character sheet</h1>
-
-					{myCharacters.map((item, index) => (
-						<div key={index} className="character">
-							<p>Name: {item.name}</p>
-							<p>Race: {item.race}</p>
-							<p>Class: {item.klass}</p>
-							<p>Faith: {item.faith}</p>
-							<p>Strength: {item.strength}</p>
-							<p>Dexterity: {item.dexterity}</p>
-							<p>Physics: {item.physics}</p>
-							<p>Perception: {item.perception}</p>
-							<p>Willpower: {item.willpower}</p>
-							<p>Appearance: {item.appearance}</p>
-							<p>Start funds: {item.startFunds}</p>
-						</div>
-					))}
+					<div className="character-sheet">
+						{myCharacters.map((item, index) => (
+							<div key={index} className="character">
+								<p>Name: {item.name}</p>
+								<p>Race: {item.race}</p>
+								<p>Class: {item.klass}</p>
+								<p>Faith: {item.faith}</p>
+								<p>Strength: {item.strength}</p>
+								<p>Dexterity: {item.dexterity}</p>
+								<p>Physics: {item.physics}</p>
+								<p>Perception: {item.perception}</p>
+								<p>Willpower: {item.willpower}</p>
+								<p>Appearance: {item.appearance}</p>
+								<p>Start funds: {item.startFunds}</p>
+							</div>
+						))}
+					</div>
 				</div>
 			)}
 		</div>
