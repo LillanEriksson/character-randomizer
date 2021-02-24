@@ -68,6 +68,10 @@ export const App = () => {
 
 		const randomFaith = () => randomSelector(faith);
 
+		//and a looots of conditionals here because reasons
+		//make each variabel to a function with conditionals
+		//ex if race === Smallpeople {strength -7} ish
+
 		const strength = rollDices();
 
 		const dexterity = rollDices();
@@ -130,33 +134,39 @@ export const App = () => {
 						<p>Willpower: {newCharacter.willpower}</p>
 						<p>Appearance: {newCharacter.appearance}</p>
 						<p>Start funds: {newCharacter.startFunds}</p>
+						<button
+							onClick={() => {
+								saveCharacter();
+								setShowNewCharacter(false);
+								setShowCharacterSheet(true);
+							}}>
+							Save this character to my character-sheet?
+						</button>
 					</div>
 				)}
 			</div>
 
-			<button
-				onClick={() => {
-					saveCharacter();
-					setShowNewCharacter(false);
-				}}>
-				Save this character to my character-sheet?
-			</button>
-			<h1>Character sheet</h1>
-			{myCharacters.map((item, index) => (
-				<div key={index} className="character-sheet">
-					<p>Name: {item.name}</p>
-					<p>Race: {item.race}</p>
-					<p>Class: {item.klass}</p>
-					<p>Faith: {item.faith}</p>
-					<p>Strength: {item.strength}</p>
-					<p>Dexterity: {item.dexterity}</p>
-					<p>Physics: {item.physics}</p>
-					<p>Perception: {item.perception}</p>
-					<p>Willpower: {item.willpower}</p>
-					<p>Appearance: {item.appearance}</p>
-					<p>Start funds: {item.startFunds}</p>
+			{showCharacterSheet && (
+				<div className="character-sheet">
+					<h1>Character sheet</h1>
+
+					{myCharacters.map((item, index) => (
+						<div key={index} className="character">
+							<p>Name: {item.name}</p>
+							<p>Race: {item.race}</p>
+							<p>Class: {item.klass}</p>
+							<p>Faith: {item.faith}</p>
+							<p>Strength: {item.strength}</p>
+							<p>Dexterity: {item.dexterity}</p>
+							<p>Physics: {item.physics}</p>
+							<p>Perception: {item.perception}</p>
+							<p>Willpower: {item.willpower}</p>
+							<p>Appearance: {item.appearance}</p>
+							<p>Start funds: {item.startFunds}</p>
+						</div>
+					))}
 				</div>
-			))}
+			)}
 		</div>
 	);
 };
