@@ -107,10 +107,44 @@ export const App = () => {
 			<button onClick={() => generateCharacter()}>
 				Generate new character
 			</button>
+
+			<div>
+				<p>
+					Name: {newCharacter.name.first} {newCharacter.name.last}
+				</p>
+				<p>Race: {newCharacter.race}</p>
+				<p>Class: {newCharacter.klass}</p>
+				<p>Faith: {newCharacter.faith}</p>
+				<p>Strength: {newCharacter.strength}</p>
+				<p>Dexterity: {newCharacter.dexterity}</p>
+				<p>Physics: {newCharacter.physics}</p>
+				<p>Perception: {newCharacter.perception}</p>
+				<p>Willpower: {newCharacter.willpower}</p>
+				<p>Appearance: {newCharacter.appearance}</p>
+				<p>Start funds: {newCharacter.startFunds}</p>
+			</div>
 			<button onClick={() => saveCharacter()}>
-				Save character to character-sheet
+				Save this character to my character-sheet?
 			</button>
-			<div></div>
+
+			{myCharacters.map((item) => (
+				<div>
+					<h1>Character sheet</h1>
+					<p>
+						Name: {item.name.first} {item.name.last}
+					</p>
+					<p>Race: {item.race}</p>
+					<p>Class: {item.klass}</p>
+					<p>Faith: {item.faith}</p>
+					<p>Strength: {item.strength}</p>
+					<p>Dexterity: {item.dexterity}</p>
+					<p>Physics: {item.physics}</p>
+					<p>Perception: {item.perception}</p>
+					<p>Willpower: {item.willpower}</p>
+					<p>Appearance: {item.appearance}</p>
+					<p>Start funds: {item.startFunds}</p>
+				</div>
+			))}
 		</div>
 	);
 };
