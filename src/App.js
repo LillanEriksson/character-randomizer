@@ -101,51 +101,51 @@ export const App = () => {
 		};
 
 		if (character.race === 'Insectoid' && character.dexterity < 9) {
-			return (character.dexterity = 9);
+			character.dexterity = 9;
 		}
 		if (character.race === 'Insectoid' && character.perception < 9) {
-			return (character.perception = 9);
+			character.perception = 9;
 		}
 		if (character.race === 'Insectoid' && character.willpower > 15) {
-			return (character.willpower = 15);
+			character.willpower = 15;
 		}
 		if (character.race === 'Rese' && character.strength < 13) {
-			return (character.strength = 13);
+			character.strength = 13;
 		}
 		if (character.race === 'Rese' && character.dexterity > 17) {
-			return (character.dexterity = 17);
+			character.dexterity = 17;
 		}
 		if (character.race === 'Robot' && character.physics < 13) {
-			return (character.physics = 13);
+			character.physics = 13;
 		}
 		if (character.race === 'Robot' && character.strength < 13) {
-			return (character.strength = 13);
+			character.strength = 13;
 		}
 		if (character.race === 'Robot' && character.appearance > 15) {
-			return (character.appearance = 15);
+			character.appearance = 15;
 		}
 		if (character.race === 'Halfling' && character.dexterity < 9) {
-			return (character.dexterity = 9);
+			character.dexterity = 9;
 		}
 		if (character.race === 'Halfling' && character.strength > 17) {
-			return (character.strength = 17);
+			character.strength = 17;
 		}
 		if (character.race === 'Dwarf/Underground' && character.physics < 9) {
-			return (character.physics = 9);
+			character.physics = 9;
 		}
 		if (character.race === 'Dwarf/Underground' && character.appearance > 17) {
-			return (character.appearance = 17);
+			character.appearance = 17;
 		}
 		if (character.race === 'Elf/Ancient' && character.perception < 9) {
-			return (character.perception = 9);
+			character.perception = 9;
 		}
 		if (character.race === 'Elf/Ancient' && character.dexterity < 9) {
-			return (character.dexterity = 9);
+			character.dexterity = 9;
 		}
 		if (character.race === 'Elf/Ancient' && character.physics > 17) {
-			return (character.dexterity = 17);
+			character.dexterity = 17;
 		}
-		console.log(character);
+
 		return setNewCharacter(character);
 	};
 
