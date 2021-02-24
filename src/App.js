@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 
 export const App = () => {
-	const [characterName, setCharacterName] = useState([]);
+	const [randomNames, setRandomNames] = useState([]);
 	const [myCharacters, setMyCharacters] = useState([]);
 	const [newCharacter, setNewCharacter] = useState();
+	const [showNewCharacter, setShowNewCharacter] = useState(false);
+	const [showCharacterSheet, setShowCharacterSheet] = useState(false);
 
 	const randomSelector = (array) => {
 		return array[Math.floor(Math.random() * array.length)];
@@ -23,8 +25,8 @@ export const App = () => {
 		fetch(API_URL)
 			.then((res) => res.json())
 			.then((names) => {
-				const randomName = randomSelector(names);
-				setCharacterName(randomName);
+				const justTheNames = names.map((item) => item.first);
+				setRandomNames(justTheNames);
 			});
 	}, []);
 
@@ -58,6 +60,8 @@ export const App = () => {
 	];
 
 	const generateCharacter = () => {
+		const randomName = randomSelector(randomNames);
+
 		const randomRace = () => randomSelector(races);
 
 		const randomKlass = () => randomSelector(klasses);
@@ -79,7 +83,7 @@ export const App = () => {
 		const randomStartFunds = () => randomSelector(startFunds);
 
 		const character = {
-			name: characterName,
+			name: randomName,
 			race: randomRace(),
 			klass: randomKlass(),
 			faith: randomFaith(),
@@ -91,48 +95,56 @@ export const App = () => {
 			appearance: appearance,
 			startFunds: randomStartFunds(),
 		};
-
+		console.log(character);
 		return setNewCharacter(character);
 	};
 
 	const saveCharacter = () =>
 		setMyCharacters((myCharacters) => [...myCharacters, newCharacter]);
 
-	console.log(newCharacter);
-	console.log(myCharacters);
-
 	return (
 		<div className="randomizer-container">
 			<h1>Swedish roleplay-character randomizer</h1>
-			<button onClick={() => generateCharacter()}>
-				Generate new character
-			</button>
 
 			<div>
-				<p>
-					Name: {newCharacter.name.first} {newCharacter.name.last}
-				</p>
-				<p>Race: {newCharacter.race}</p>
-				<p>Class: {newCharacter.klass}</p>
-				<p>Faith: {newCharacter.faith}</p>
-				<p>Strength: {newCharacter.strength}</p>
-				<p>Dexterity: {newCharacter.dexterity}</p>
-				<p>Physics: {newCharacter.physics}</p>
-				<p>Perception: {newCharacter.perception}</p>
-				<p>Willpower: {newCharacter.willpower}</p>
-				<p>Appearance: {newCharacter.appearance}</p>
-				<p>Start funds: {newCharacter.startFunds}</p>
+				{' '}
+				<button
+					onClick={() => {
+						generateCharacter();
+						setShowNewCharacter(true);
+					}}>
+					Generate new character
+				</button>
 			</div>
-			<button onClick={() => saveCharacter()}>
+			<div>
+				{showNewCharacter && (
+					<div className="new-character">
+						<p>Name: {newCharacter.name}</p>
+						<p>Race: {newCharacter.race}</p>
+						<p>Class: {newCharacter.klass}</p>
+						<p>Faith: {newCharacter.faith}</p>
+						<p>Strength: {newCharacter.strength}</p>
+						<p>Dexterity: {newCharacter.dexterity}</p>
+						<p>Physics: {newCharacter.physics}</p>
+						<p>Perception: {newCharacter.perception}</p>
+						<p>Willpower: {newCharacter.willpower}</p>
+						<p>Appearance: {newCharacter.appearance}</p>
+						<p>Start funds: {newCharacter.startFunds}</p>
+					</div>
+				)}
+			</div>
+
+			<button
+				onClick={() => {
+					saveCharacter();
+					setShowNewCharacter(false);
+				}}>
 				Save this character to my character-sheet?
 			</button>
-
-			{myCharacters.map((item) => (
-				<div>
-					<h1>Character sheet</h1>
-					<p>
-						Name: {item.name.first} {item.name.last}
-					</p>
+			<h1>Character sheet</h1>
+			{myCharacters.map((item, index) => (
+				<div key={index} className="character-sheet">
+					<p>Name: {item.name}</p>
 					<p>Race: {item.race}</p>
 					<p>Class: {item.klass}</p>
 					<p>Faith: {item.faith}</p>
