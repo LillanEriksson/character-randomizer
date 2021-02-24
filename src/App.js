@@ -35,7 +35,7 @@ export const App = () => {
 		'Human',
 		'Insectoid',
 		'Mutant',
-		'Rese',
+		'Ogre',
 		'Robot',
 		'Halfling',
 		'Dwarf/Underground',
@@ -109,10 +109,10 @@ export const App = () => {
 		if (character.race === 'Insectoid' && character.willpower > 15) {
 			character.willpower = 15;
 		}
-		if (character.race === 'Rese' && character.strength < 13) {
+		if (character.race === 'Ogre' && character.strength < 13) {
 			character.strength = 13;
 		}
-		if (character.race === 'Rese' && character.dexterity > 17) {
+		if (character.race === 'Ogre' && character.dexterity > 17) {
 			character.dexterity = 17;
 		}
 		if (character.race === 'Robot' && character.physics < 13) {
