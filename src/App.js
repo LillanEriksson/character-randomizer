@@ -37,7 +37,7 @@ export const App = () => {
 		'Mutant',
 		'Rese',
 		'Robot',
-		'Smallpeople',
+		'Halfling',
 		'Underground',
 		'Ancient',
 	];
@@ -70,7 +70,7 @@ export const App = () => {
 
 		//and a looots of conditionals here because reasons
 		//make each variabel to a function with conditionals
-		//ex if race === Smallpeople {strength -7} ish
+		//ex if race === halfling {strength -7} ish
 
 		const strength = rollDices();
 
