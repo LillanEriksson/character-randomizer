@@ -1,14 +1,37 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 
 export const App = () => {
+	const [characterName, setCharacterName] = useState([]);
+	const [myCharacters, setMyCharacters] = useState([]);
+	const [newCharacter, setNewCharacter] = useState();
+
 	const randomSelector = (array) => {
 		return array[Math.floor(Math.random() * array.length)];
 	};
-	//folkslag
-	const race = [
+
+	//dice function
+	const rollDices = () => {
+		return Math.floor(Math.random() * 18) + 3;
+	};
+
+	//sadly I could not find a api with only swedish names
+	const API_URL =
+		'https://randomapi.com/api/6de6abfedb24f889e0b5f675edc50deb?fmt=raw&sole';
+
+	useEffect(() => {
+		fetch(API_URL)
+			.then((res) => res.json())
+			.then((names) => {
+				const randomName = randomSelector(names);
+				setCharacterName(randomName);
+			});
+	}, []);
+
+	//different races in the game
+	const races = [
 		'Human',
-		'Insektoid',
+		'Insectoid',
 		'Mutant',
 		'Rese',
 		'Robot',
@@ -17,29 +40,12 @@ export const App = () => {
 		'Ancient',
 	];
 
-	const randomRace = () => randomSelector(race);
-
 	//can't use class because it's a reserved keyword
-	const klass = ['Warrior', 'Magician', 'Thief'];
+	const klasses = ['Warrior', 'Magician', 'Thief'];
 
-	const randomKlass = () => randomSelector(klass);
-	//ödesmakt
+	//faith, translated from the swedish word 'ödesmakt'
 	const faith = ['Order', 'Chaos', 'Balance'];
 
-	const randomFaith = () => randomSelector(faith);
-	//styrka
-	const strenght = Math.floor(Math.random() * 18) + 3;
-	//smidighet
-	const dexterity = Math.floor(Math.random() * 18) + 3;
-	//fysik
-	const physics = Math.floor(Math.random() * 18) + 3;
-	//perception
-	const perception = Math.floor(Math.random() * 18) + 3;
-	//viljestyrka
-	const willpower = Math.floor(Math.random() * 18) + 3;
-	//utstrålning
-	const appearance = Math.floor(Math.random() * 18) + 3;
-	//startkapital
 	const startFunds = [
 		'A handful worthless pinecones and stones',
 		' 3 km',
@@ -50,21 +56,61 @@ export const App = () => {
 		'20 sm',
 		'30 sm',
 	];
-	const randomStartFunds = () => randomSelector(startFunds);
+
+	const generateCharacter = () => {
+		const randomRace = () => randomSelector(races);
+
+		const randomKlass = () => randomSelector(klasses);
+
+		const randomFaith = () => randomSelector(faith);
+
+		const strength = rollDices();
+
+		const dexterity = rollDices();
+
+		const physics = rollDices();
+
+		const perception = rollDices();
+
+		const willpower = rollDices();
+
+		const appearance = rollDices();
+
+		const randomStartFunds = () => randomSelector(startFunds);
+
+		const character = {
+			name: characterName,
+			race: randomRace(),
+			klass: randomKlass(),
+			faith: randomFaith(),
+			strength: strength,
+			dexterity: dexterity,
+			physics: physics,
+			perception: perception,
+			willpower: willpower,
+			appearance: appearance,
+			startFunds: randomStartFunds(),
+		};
+
+		return setNewCharacter(character);
+	};
+
+	const saveCharacter = () =>
+		setMyCharacters((myCharacters) => [...myCharacters, newCharacter]);
+
+	console.log(newCharacter);
+	console.log(myCharacters);
 
 	return (
-		<div>
+		<div className="randomizer-container">
 			<h1>Swedish roleplay-character randomizer</h1>
-			<p>Race: {randomRace()}</p>
-			<p>Class: {randomKlass()}</p>
-			<p>Faith: {randomFaith()}</p>
-			<p>Strenght: {strenght}</p>
-			<p>Dexterity: {dexterity}</p>
-			<p>Physics: {physics}</p>
-			<p>Perception: {perception}</p>
-			<p>Willpower: {willpower}</p>
-			<p>Appearance: {appearance}</p>
-			<p>Starting funds: {randomStartFunds()}</p>
+			<button onClick={() => generateCharacter()}>
+				Generate new character
+			</button>
+			<button onClick={() => saveCharacter()}>
+				Save character to character-sheet
+			</button>
+			<div></div>
 		</div>
 	);
 };
