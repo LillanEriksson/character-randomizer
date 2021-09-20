@@ -1,5 +1,8 @@
+import { PDFDownloadLink } from '@react-pdf/renderer';
 import React, { useState, useEffect } from 'react';
 import './App.css';
+import './GeneratePDF';
+import { GeneratePDF } from './GeneratePDF';
 
 export const App = () => {
 	const [randomNames, setRandomNames] = useState([]);
@@ -7,6 +10,7 @@ export const App = () => {
 	const [newCharacter, setNewCharacter] = useState();
 	const [showNewCharacter, setShowNewCharacter] = useState(false);
 	const [showCharacterSheet, setShowCharacterSheet] = useState(false);
+	const [generatePDF, setGeneratePDF] = useState(false);
 
 	const randomSelector = (array) => {
 		return array[Math.floor(Math.random() * array.length)];
@@ -100,6 +104,9 @@ export const App = () => {
 			startFunds: randomStartFunds(),
 		};
 
+		//add attackbonus, belasting(?), movement, defense, battlepoints
+		//make this a switch-statement
+
 		if (character.race === 'Insectoid' && character.dexterity < 9) {
 			character.dexterity = 9;
 		}
@@ -152,10 +159,13 @@ export const App = () => {
 	const saveCharacter = () =>
 		setMyCharacters((myCharacters) => [...myCharacters, newCharacter]);
 
+	// library used for the pdf
+	//https://github.com/diegomura/react-pdf
+	//https://dev.to/finallynero/generating-pdf-documents-in-react-using-react-pdf-4ka7
+
 	return (
 		<div className="randomizer-container">
 			<h1>Swedish roleplay-character randomizer</h1>
-
 			<div>
 				{' '}
 				<button
@@ -213,6 +223,22 @@ export const App = () => {
 						))}
 					</div>
 				</div>
+			)}
+			{myCharacters.length > 0 && (
+				<div>
+					<button onClick={() => setGeneratePDF(true)}>
+						Generate PDF with my characters
+					</button>
+				</div>
+			)}
+			{generatePDF && (
+				<PDFDownloadLink
+					document={<GeneratePDF characters={myCharacters} />}
+					fileName="Charactersheet.pdf">
+					{({ blob, url, loading, error }) =>
+						loading ? 'Loading document..' : 'Download PDF'
+					}
+				</PDFDownloadLink>
 			)}
 		</div>
 	);
